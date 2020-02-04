@@ -1,3 +1,38 @@
+# Usage
+This repo has been refactored to use `pipenv` and a simplified Docker file image to run the contained code.  It should be more reproducible in the future. 
+
+This assumes you have docker and docker-compose installed.  On Windows, compose comes packaged with Docker for Windows.  You can also install it manually via the [compose documentation](https://docs.docker.com/compose/install/).
+
+To build:
+```
+docker-compose build
+```
+
+To run:
+```
+docker-compose up
+```
+A jupyter server will be available at http://localhost:9888/lab. 
+
+### Data
+The original code expects data at `/data`.  The compose file maps `./data` => `/data` in the container automatically.  The full working directory is also mounted at `/app`.  
+
+### Updating pipenv dependencies 
+If code dependencies need to be updated, use `pipenv` from within the container to update the `Pipfile.lock` then rebuild the container.
+
+```
+# using the utility entrypoint if using bash
+./drun_app pipenv install NEW_PACKAGE
+docker-compose build
+```
+Or if not using bash:
+```
+docker-compose run app pipenv install NEW_PACKAGE
+docker-compose build
+```
+
+More information on Pipenv is available on the [documentation page](https://pipenv.kennethreitz.org/en/latest/). 
+
 # Privacy-preserving generative deep neural networks support clinical data sharing
 
 Brett K. Beaulieu-Jones<sup>1</sup>, Zhiwei Steven Wu<sup>2</sup>, Chris Williams<sup>3</sup>, Casey S. Greene<sup>3</sup>*
