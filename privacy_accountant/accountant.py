@@ -32,7 +32,7 @@ import sys
 import numpy
 import tensorflow as tf
 
-import utils
+from .utils import GenerateBinomialTable
 
 EpsDelta = collections.namedtuple("EpsDelta", ["spent_eps", "spent_delta"])
 
@@ -333,7 +333,7 @@ class GaussianMomentsAccountant(MomentsAccountant):
       moment_orders: the order of moments to keep.
     """
     super(self.__class__, self).__init__(total_examples, moment_orders)
-    self._binomial_table = utils.GenerateBinomialTable(self._max_moment_order)
+    self._binomial_table = GenerateBinomialTable(self._max_moment_order)
 
   def _differential_moments(self, sigma, s, t):
     """Compute 0 to t-th differential moments for Gaussian variable.
