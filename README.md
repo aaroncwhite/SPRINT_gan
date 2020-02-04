@@ -14,6 +14,18 @@ docker-compose up
 ```
 A jupyter server will be available at http://localhost:9888/lab. 
 
+### Running specific scripts
+There are several scripts included in the repo.  Use the `drun_app` bash shortcut if running from bash to run specific programs and not run jupyter. 
+
+```
+./drun_app python script.py
+```
+
+Or without the shortcut:
+```
+docker-compose run app python script.py
+```
+
 ### Data
 The original code expects data at `/data`.  The compose file maps `./data` => `/data` in the container automatically.  The full working directory is also mounted at `/app`.  
 
