@@ -1,44 +1,30 @@
-FROM ubuntu:16.04
-MAINTAINER Brett Beaulieu-Jones <brettbe@med.upenn.edu>
+FROM tensorflow/tensorflow:1.14.0-gpu-py3 as base
+ARG DEV
+# Make it easier to access jupyter
+COPY docker/jupyter_notebook_config.py /root/.jupyter/
 
-# Install useful Python packages using apt-get to avoid version incompatibilities w$
-# especially numpy, scipy, skimage and sklearn (see https://github.com/tensorflow/t$
-RUN apt-get update && apt-get install -y \
-                software-properties-common \
-                python-numpy \
-                python-scipy \
-                python-nose \
-                python-h5py \
-                python-skimage \
-                python-matplotlib \
-                python-pandas \
-                python-sklearn \
-                python-sympy \
-		python-pip \
-                && \
-        apt-get clean && \
-        apt-get autoremove && \
-        rm -rf /var/lib/apt/lists/*
+ENV \
+    LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8 \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    PIPENV_HIDE_EMOJIS=true \
+    PIPENV_COLORBLIND=true \
+    PIPENV_NOSPIN=true \
+    PYTHONPATH="/app:${PYTHONPATH}" \
+    PIP_SRC="/src"
 
-RUN pip install --upgrade pip
+RUN pip install pipenv
 
-# Install other useful Python packages using pip
-RUN pip --no-cache-dir install --upgrade ipython && \
-        pip --no-cache-dir install \
-                Cython \
-                ipykernel \
-                jupyter \
-                path.py \
-                Pillow \
-                pygments \
-                six \
-                sphinx \
-                wheel \
-                zmq \
-                && \
-        python -m ipykernel.kernelspec
+WORKDIR /app
+COPY Pipfile .
+COPY Pipfile.lock .
 
-RUN pip install seaborn
+RUN pipenv install --system --deploy --ignore-pipfile --dev
 
-# since we're not training models in docker, CPU version is fine
-RUN pip install tensorflow keras
+EXPOSE 8888
+WORKDIR /app
