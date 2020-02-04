@@ -11,8 +11,10 @@ sklearn = "*"
 h5py = "*"
 seaborn = "*"
 tensorflow = "==1.*"
-keras = "*"
+keras = "==2.0.9"
 jupyterlab = "*"
+pil = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"
