@@ -222,7 +222,7 @@ if __name__ == '__main__':
 
                 # get a batch of real patients
                 image_batch = np.expand_dims(X_train[random_sample[index]], axis=1)
-                label_batch = np.expand_dims(y_train[random_sample[index]], axis=1)
+                label_batch = np.expand_dims(y_train[random_sample[index]], axis=0)
 
                 # sample some labels from p_c
                 sampled_labels = np.random.randint(0, 2, batch_size)
