@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# convenience wrapper to run something
+# in the 'app' container 
+docker-compose run app "$@"
