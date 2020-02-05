@@ -1,10 +1,14 @@
-version: '3'
+version: '2.3'
 services:
   app:
     build: 
       context: .
       args:
         - DEV=1
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
+      - CUDA_DEVICE_ORDER=${CUDA_DEVICE_ORDER}
     volumes:
       - .:/app
       # Based on review of the code, the python modules
