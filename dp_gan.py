@@ -274,8 +274,8 @@ if __name__ == '__main__':
                     spent_eps, spent_delta))
             print('priv time: ', time.clock() - priv_start_time)
 
-            if spent_eps_deltas[-3][1] > 0.0001:
-                raise Exception('spent privacy')
+            #if spent_eps_deltas[-3][1] > 0.0001:
+            #    raise Exception('spent privacy')
 
             print('\nTesting for epoch {}:'.format(epoch + 1))
             # generate a new batch of noise
