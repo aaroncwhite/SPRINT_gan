@@ -14,6 +14,13 @@ docker-compose up
 ```
 A jupyter server will be available at http://localhost:9888/lab. 
 
+### Env Variables and GPUs
+There is an example environment variable file called `example.env` in the root of the repository.  Rename this to `.env` and *do not* commit it to git.  You can also store secrets here if necessary.  There currently are two variables:
+* NVIDIA_VISIBLE_DEVICES:  Maps to the GPU number you want visible.  Set to `all` if you want all of them.  
+* RUNTIME: use `nvidia` to have GPU capabilities.  Use `runc` for machines without it.  
+
+Running with GPU support requires the [nvidia-container-runtime](https://github.com/NVIDIA/nvidia-container-runtime) is installed and working on the host machine.  Note that because tensorflow 1.x split gpu and non-gpu capabilities it may not work on non-gpu enabled machines. 
+
 ### Running specific scripts
 There are several scripts included in the repo.  Use the `drun_app` bash shortcut if running from bash to run specific programs and not run jupyter. 
 
