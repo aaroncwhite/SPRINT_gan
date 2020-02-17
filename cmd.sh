@@ -1,0 +1,1 @@
+python dp_gan.py --noise 1 --clip_value 0.0001 --epochs 500 --lr 2e-05 --batch_size 1 --prefix 1_0.0001_2e-05_
