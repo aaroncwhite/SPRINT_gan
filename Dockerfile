@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.14.0-gpu-py3 as base
+FROM tensorflow/tensorflow:1.9.0-gpu-py3 as base
 ARG DEV
 # Make it easier to access jupyter
 COPY docker/jupyter_notebook_config.py /root/.jupyter/
